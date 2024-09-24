@@ -16,14 +16,14 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
 
     public static final class Swerve {
-        public static final int pigeonID = 1;
+        public static final int pigeonID = 14;
 
         public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
-        COTSTalonFXSwerveConstants.SDS.MK4i.Falcon500(COTSTalonFXSwerveConstants.SDS.MK4i.driveRatios.L2);
+        COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.Falcon500(COTSTalonFXSwerveConstants.WCP.SwerveXFlipped.driveRatios.X2_10);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot
-        public static final double wheelBase = Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = Units.inchesToMeters(30); //TODO: This must be tuned to specific robot
+        public static final double wheelBase = Units.inchesToMeters(30); //TODO: This must be tuned to specific robot
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
@@ -51,14 +51,14 @@ public final class Constants {
         public static final double angleCurrentThresholdTime = 0.1;
         public static final boolean angleEnableCurrentLimit = true;
 
-        public static final int driveCurrentLimit = 35;
+        public static final int driveCurrentLimit = 39;
         public static final int driveCurrentThreshold = 60;
         public static final double driveCurrentThresholdTime = 0.1;
         public static final boolean driveEnableCurrentLimit = true;
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.25;
+        public static final double openLoopRamp = 0.2;
         public static final double closedLoopRamp = 0.0;
 
         /* Angle Motor PID Values */
@@ -67,21 +67,21 @@ public final class Constants {
         public static final double angleKD = chosenModule.angleKD;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.12; //TODO: This must be tuned to specific robot
+        public static final double driveKP = 0.5; //TODO: This must be tuned to specific robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
 
         /* Drive Motor Characterization Values From SYSID */
-        public static final double driveKS = 0.32; //TODO: This must be tuned to specific robot
-        public static final double driveKV = 1.51;
-        public static final double driveKA = 0.27;
+        public static final double driveKS = (0.32 / 12); //TODO: This must be tuned to specific robot
+        public static final double driveKV = (1.51 / 12);
+        public static final double driveKA = (0.27 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; //TODO: This must be tuned to specific robot
+        public static final double maxSpeed = 1; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 1.0; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
@@ -92,8 +92,8 @@ public final class Constants {
         public static final class Mod0 { //TODO: This must be tuned to specific robot
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 2;
-            public static final int canCoderID = 1;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final int canCoderID = 13;
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(105.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -102,17 +102,17 @@ public final class Constants {
         public static final class Mod1 { //TODO: This must be tuned to specific robot
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 4;
-            public static final int canCoderID = 2;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
+            public static final int canCoderID = 11;
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-55.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
         /* Back Left Module - Module 2 */
         public static final class Mod2 { //TODO: This must be tuned to specific robot
-            public static final int driveMotorID = 5;
-            public static final int angleMotorID = 6;
-            public static final int canCoderID = 3;
+            public static final int driveMotorID = 7;
+            public static final int angleMotorID = 8;
+            public static final int canCoderID = 12;
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
@@ -120,9 +120,9 @@ public final class Constants {
 
         /* Back Right Module - Module 3 */
         public static final class Mod3 { //TODO: This must be tuned to specific robot
-            public static final int driveMotorID = 7;
-            public static final int angleMotorID = 8;
-            public static final int canCoderID = 4;
+            public static final int driveMotorID = 5;
+            public static final int angleMotorID = 6;
+            public static final int canCoderID = 10;
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
@@ -130,18 +130,37 @@ public final class Constants {
     }
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxSpeedMetersPerSecond = 10;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
+        public static final double kPXController = 1.5;
+        public static final double kPYController = 1.5;
+        public static final double kPThetaController = 3;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+    }
+
+    public static final class FeederConstants {
+        public static final int intakeMotorID = 12;
+        public static final double intakeMotorSpeed = -0.5;
+    }
+
+    public static final class ShooterConstants {
+        public static final int pivotLeftMotorID = 15;
+        public static final int pivotRightMotorID = 16;
+        public static final int receiveNoteMotorID = 17;
+        public static final int shootNoteMotorID = 18;
+        
+        public static final double kP = 18;        
+        public static final double kI = 0;
+        public static final double kD = 0.1;
+        public static final double PeakForwardTorqueCurrent = 130;        
+        public static final double PeakReverseTorqueCurrent = 130;
+
     }
 }
