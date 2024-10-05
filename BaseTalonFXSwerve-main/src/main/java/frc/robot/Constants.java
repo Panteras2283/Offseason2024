@@ -93,17 +93,17 @@ public final class Constants {
             public static final int driveMotorID = 6;
             public static final int angleMotorID = 3;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(120);
+            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(119.3);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
         /* Front Right Module - Module 1 */
-        public static final class Mod1 { //TODO: This must be tuned to specific robot
+        public static final class Mod1 { //TODO: This must be tuned to specific robot -142.5 --
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 5;
             public static final int canCoderID = 13;
-            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(-142.5);
+            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(-144.94);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -113,17 +113,17 @@ public final class Constants {
             public static final int driveMotorID = 7;
             public static final int angleMotorID = 0;
             public static final int canCoderID = 11;
-            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(130);
+            public static final Rotation2d angleOffset =  Rotation2d.fromDegrees(134.03);
             public static final SwerveModuleConstants constants =
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
         /* Back Right Module - Module 3   Rotation2d.fromDegrees(0.0) */
-        public static final class Mod3 { //TODO: This must be tuned to specific robot
+        public static final class Mod3 { //TODO: This must be tuned to specific robot --
             public static final int driveMotorID = 4;
             public static final int angleMotorID = 2;
             public static final int canCoderID = 12;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-240);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-230.08);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -148,19 +148,62 @@ public final class Constants {
     public static final class FeederConstants {
         public static final int intakeMotorID = 12;
         public static final double intakeMotorSpeed = -0.5;
+
+        public static final int pivotLeft_ID = 10;
+        public static final int pivotRight_ID = 11;
+
+        public static final double POS_initLeft = -0.5713;
+        public static final double POS_initRight = 0.5635;
+        
+        public static final double POS_eatLeft = -0.0045;
+        public static final double POS_eatRight = -0.0012;
+
+        public static final double POS_ampLeft = -0.667;
+        public static final double POS_ampRight = 0.652;
+
+        public static final double pivotKP = 3.5;
+        public static final double pivotKI = 0;
+        public static final double pivotKD = 0;
+        public static final double pivotKIz = 0;
+        public static final double pivotKFF = 0;
+        public static final double KMinOutput = -1;
+        public static final double kMaxOutput = 1;
+        public static final double maxVel = 1500;
+        public static final double minVel = 0;
+        public static final double maxAcc = 700;
+        public static final double allowedErr = 0;
     }
 
     public static final class ShooterConstants {
-        public static final int pivotLeftMotorID = 15;
-        public static final int pivotRightMotorID = 16;
+        public static final int pivotMotorID = 15;
         public static final int receiveNoteMotorID = 17;
-        public static final int shootNoteMotorID = 18;
+        public static final int LeftShootNoteMotorID = 18;
+        public static final int RightShootNoteMotorID = 18;
+
+        
+        public static final double POS_init = 0;
+        public static final double POS_speaker = 0;
+        public static final double POS_amp = 0;
+        public static final double POS_eat = 0;
+        public static final double POS_source = 0;
         
         public static final double kP = 18;        
         public static final double kI = 0;
         public static final double kD = 0.1;
         public static final double PeakForwardTorqueCurrent = 130;        
         public static final double PeakReverseTorqueCurrent = 130;
+
+        public static final double velP = 0.0002;
+        public static final double velI = 0.0000005;
+        public static final double velD = 0;
+        public static final double velIz = 0;
+        public static final double velFF = 0;
+        public static final double velMaxOut = 1;
+        public static final double velMinOut = -1;
+        public static final double AMP_vel = -2000;        
+        public static final double SPKLeft_vel = -3500;
+        public static final double SPKRight_vel = -3500;
+
 
     }
 }

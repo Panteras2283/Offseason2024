@@ -31,16 +31,64 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 
 public class Shooter extends SubsystemBase {
-  private final TalonFX pivotLeft_motor = new TalonFX(Constants.ShooterConstants.pivotLeftMotorID);
-  private final TalonFX pivotRight_motor = new TalonFX(Constants.ShooterConstants.pivotRightMotorID);
-  private final TalonFX receiveNote_motor = new TalonFX(Constants.ShooterConstants.receiveNoteMotorID);
-  private final TalonFX shootNote_motor = new TalonFX(Constants.ShooterConstants.shootNoteMotorID);
-  private final DigitalInput note_sensor = new DigitalInput(6);
+  private final TalonFX pivot_motor = new TalonFX(Constants.ShooterConstants.pivotMotorID);
+  private final CANSparkMax receiveNote_motor = new CANSparkMax(Constants.ShooterConstants.receiveNoteMotorID, MotorType.kBrushless);
+  private final CANSparkMax leftShoot = new CANSparkMax(Constants.ShooterConstants.LeftShootNoteMotorID, MotorType.kBrushless);
+  private final CANSparkMax rightShoot = new CANSparkMax(Constants.ShooterConstants.LeftShootNoteMotorID, MotorType.kBrushless);
+
+  private final DigitalInput note_sensor = new DigitalInput(0);
+
   private final MotionMagicVoltage m_mmReq = new MotionMagicVoltage(0);
+  private SparkPIDController m_pidControllerLeft;
+  private SparkPIDController m_pidControllerRight;
+  private RelativeEncoder m_encoderLeft;
+  private RelativeEncoder m_encoderRight;
+
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, AmpRPM, SpkRPMLeft, SpkRPMRight;
 
 
   /** Creates a new Shooter. */
   public Shooter() {
+    leftShoot.restoreFactoryDefaults();
+    m_pidControllerLeft = leftShoot.getPIDController();
+    m_encoderLeft = leftShoot.getEncoder();
+    kP = Constants.ShooterConstants.velP;//0.000654 
+    kI = Constants.ShooterConstants.velI;
+    kD = Constants.ShooterConstants.velD; 
+    kIz = Constants.ShooterConstants.velIz; 
+    kFF = Constants.ShooterConstants.velFF; 
+    kMaxOutput = Constants.ShooterConstants.velMaxOut; 
+    kMinOutput = Constants.ShooterConstants.velMinOut;
+    AmpRPM = Constants.ShooterConstants.AMP_vel;
+    SpkRPMLeft = Constants.ShooterConstants.SPKLeft_vel;
+
+    m_pidControllerLeft.setP(kP);
+    m_pidControllerLeft.setI(kI);
+    m_pidControllerLeft.setD(kD);
+    m_pidControllerLeft.setIZone(kIz);
+    m_pidControllerLeft.setFF(kFF);
+    m_pidControllerLeft.setOutputRange(kMinOutput, kMaxOutput);
+
+    rightShoot.restoreFactoryDefaults();
+    m_pidControllerRight = rightShoot.getPIDController();
+    m_encoderRight = rightShoot.getEncoder();
+    kP = Constants.ShooterConstants.velP;//0.000654 
+    kI = Constants.ShooterConstants.velI;
+    kD = Constants.ShooterConstants.velD; 
+    kIz = Constants.ShooterConstants.velIz; 
+    kFF = Constants.ShooterConstants.velFF; 
+    kMaxOutput = Constants.ShooterConstants.velMaxOut; 
+    kMinOutput = Constants.ShooterConstants.velMinOut;
+    AmpRPM = Constants.ShooterConstants.AMP_vel;
+    SpkRPMRight = Constants.ShooterConstants.SPKRight_vel;
+
+    m_pidControllerRight.setP(kP);
+    m_pidControllerRight.setI(kI);
+    m_pidControllerRight.setD(kD);
+    m_pidControllerRight.setIZone(kIz);
+    m_pidControllerRight.setFF(kFF);
+    m_pidControllerRight.setOutputRange(kMinOutput, kMaxOutput);
+
     TalonFXConfiguration configs = new TalonFXConfiguration();
 
     MotionMagicConfigs mm = configs.MotionMagic;
@@ -62,20 +110,11 @@ public class Shooter extends SubsystemBase {
 
     StatusCode status = StatusCode.StatusCodeNotInitialized;
     for(int i = 0; i < 5; ++i) {
-      status = pivotLeft_motor.getConfigurator().apply(configs);
+      status = pivot_motor.getConfigurator().apply(configs);
       if (status.isOK()) break;
     }
     if (!status.isOK()) {
       System.out.println("Could not configure device. Error: " + status.toString());
-    }
-
-    StatusCode status2 = StatusCode.StatusCodeNotInitialized;
-    for(int i = 0; i < 5; ++i) {
-      status2 = pivotRight_motor.getConfigurator().apply(configs);
-      if (status2.isOK()) break;
-    }
-    if (!status2.isOK()) {
-      System.out.println("Could not configure device. Error: " + status2.toString());
     }
   }
 
@@ -86,10 +125,17 @@ public class Shooter extends SubsystemBase {
 
   public void receiveNote() {
     receiveNote_motor.set(0.5);
+
+    rightShoot.set(0.75);
   }
 
-  public void schootNote() {
-    shootNote_motor.set(0.5);
+  public void accelerate() {
+    m_pidControllerLeft.setReference(SpkRPMLeft, CANSparkMax.ControlType.kVelocity);
+    m_pidControllerRight.setReference(SpkRPMRight, CANSparkMax.ControlType.kVelocity);
+  }
+
+  public void shootNote() {
+    receiveNote_motor.set(-0.5);
   }
 
   public void STOP_Receiver() {
@@ -97,14 +143,20 @@ public class Shooter extends SubsystemBase {
   }
 
   public void STOP_Shooter() {
-    shootNote_motor.set(0);
+    leftShoot.set(0);
+    rightShoot.set(0);
   }
 
-  public void setLeftPivot_Position(double pos) {
-    pivotLeft_motor.setControl(m_mmReq.withPosition(pos));
+  public void setPivot_Position(double pos) {
+    pivot_motor.setControl(m_mmReq.withPosition(pos));
   }
 
-  public void setRightPivot_Position(double pos) {
-    pivotRight_motor.setControl(m_mmReq.withPosition(pos));
+  public void manualControl(double val) {
+    pivot_motor.set(val);
   }
+
+  public boolean getSensor() {
+    return note_sensor.get();
+  }
+
 }
