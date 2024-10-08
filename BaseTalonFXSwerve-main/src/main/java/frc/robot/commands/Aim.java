@@ -5,19 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.Constants;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Limelight;
+import edu.wpi.first.math.controller.PIDController;
 
-
-public class Intake extends Command {
-  private Feeder Feeder;
+public class Aim extends Command {
   private Shooter Shooter;
-  /** Creates a new Intake. */
-  public Intake(Feeder Feeder, Shooter Shooter) {
-    this.Feeder = Feeder;
+  private Limelight Limelight;
+  private PIDController limelightSpeakerPID;
+  /** Creates a new Aim. */
+  public Aim(Shooter Shooter, Limelight Limelight) {
     this.Shooter = Shooter;
+    this.Limelight = Limelight;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Feeder, Shooter);
+    addRequirements(Shooter, Limelight);
   }
 
   // Called when the command is initially scheduled.
@@ -27,9 +30,16 @@ public class Intake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Feeder.intake_Note();
-    Shooter.setPivot_Position(Constants.ShooterConstants.POS_eat);
-    Shooter.receiveNote();
+    limelightSpeakerPID =  new PIDController(0.01, 0.009,  0);
+
+    if (Limelight.getArea() > 0) {
+      Shooter.manualControl(limelightSpeakerPID.calculate(Limelight.getTY(), 0));
+    } else {
+      //System.out.println("ATlock");
+      Shooter.setPivot_Position(Constants.ShooterConstants.POS_speaker);
+    }
+
+    Shooter.accelerate();
   }
 
   // Called once the command ends or is interrupted.
@@ -39,10 +49,6 @@ public class Intake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Shooter.getSensor() == false) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

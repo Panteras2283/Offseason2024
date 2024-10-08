@@ -20,6 +20,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick codriver = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -29,12 +30,19 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kBack.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kStart.value);
-    private final JoystickButton intake = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton intake = new JoystickButton(codriver, XboxController.Button.kY.value);
+    private final JoystickButton aim = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton shoot = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton cardinalN = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton cardinalS = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton cardinalO = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton cardinalE = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();    
     private final Feeder s_Feeder = new Feeder();
     private final Shooter s_Shooter = new Shooter();
+    private final Limelight s_Limelight = new Limelight();
 
 
 
@@ -46,7 +54,11 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                () -> robotCentric.getAsBoolean(),
+                () -> cardinalN.getAsBoolean(),
+                () -> cardinalS.getAsBoolean(),
+                () -> cardinalE.getAsBoolean(),
+                () -> cardinalO.getAsBoolean()
             )
         );
 
@@ -70,6 +82,12 @@ public class RobotContainer {
         intake.onTrue(new Intake(s_Feeder, s_Shooter));
         intake.onFalse(s_Feeder.getDefaultCommand());
         intake.onFalse(s_Shooter.getDefaultCommand());
+
+        aim.onTrue(new Aim(s_Shooter, s_Limelight));
+        aim.onFalse(s_Shooter.getDefaultCommand());
+        
+        shoot.onTrue(new InstantCommand(() -> s_Shooter.shootNote()));
+        shoot.onFalse(new InstantCommand(() -> s_Shooter.STOP_Receiver()));
 
     }
 

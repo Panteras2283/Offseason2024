@@ -178,7 +178,7 @@ public final class Constants {
         public static final int pivotMotorID = 15;
         public static final int receiveNoteMotorID = 17;
         public static final int LeftShootNoteMotorID = 18;
-        public static final int RightShootNoteMotorID = 18;
+        public static final int RightShootNoteMotorID = 19;
 
         
         public static final double POS_init = 0;

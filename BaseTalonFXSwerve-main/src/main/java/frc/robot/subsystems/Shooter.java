@@ -34,9 +34,9 @@ public class Shooter extends SubsystemBase {
   private final TalonFX pivot_motor = new TalonFX(Constants.ShooterConstants.pivotMotorID);
   private final CANSparkMax receiveNote_motor = new CANSparkMax(Constants.ShooterConstants.receiveNoteMotorID, MotorType.kBrushless);
   private final CANSparkMax leftShoot = new CANSparkMax(Constants.ShooterConstants.LeftShootNoteMotorID, MotorType.kBrushless);
-  private final CANSparkMax rightShoot = new CANSparkMax(Constants.ShooterConstants.LeftShootNoteMotorID, MotorType.kBrushless);
+  private final CANSparkMax rightShoot = new CANSparkMax(Constants.ShooterConstants.RightShootNoteMotorID, MotorType.kBrushless);
 
-  private final DigitalInput note_sensor = new DigitalInput(0);
+  private final DigitalInput note_sensor = new DigitalInput(1);
 
   private final MotionMagicVoltage m_mmReq = new MotionMagicVoltage(0);
   private SparkPIDController m_pidControllerLeft;
@@ -121,11 +121,12 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Sensor Note", note_sensor.get());
   }
 
   public void receiveNote() {
     receiveNote_motor.set(0.5);
-
+    leftShoot.set(0.75);
     rightShoot.set(0.75);
   }
 
