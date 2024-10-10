@@ -93,9 +93,9 @@ public class Shooter extends SubsystemBase {
 
     MotionMagicConfigs mm = configs.MotionMagic;
     mm.MotionMagicCruiseVelocity = 6000; // 5 rotations per second cruise
-    mm.MotionMagicAcceleration = 600; // Take approximately 0.5 seconds to reach max vel
+    mm.MotionMagicAcceleration = 60; // Take approximately 0.5 seconds to reach max vel
     // Take approximately 0.2 seconds to reach max accel 
-    //mm.MotionMagicJerk = 10000;
+    //mm.MotionMagicJerk = 5000;
 
     Slot0Configs slot0 = configs.Slot0;
 
@@ -122,17 +122,21 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Sensor Note", note_sensor.get());
+    SmartDashboard.putNumber("Shooter Position", pivot_motor.getPosition().getValueAsDouble());
+
   }
 
   public void receiveNote() {
     receiveNote_motor.set(0.5);
-    leftShoot.set(0.75);
+    leftShoot.set(-0.75);
     rightShoot.set(0.75);
   }
 
   public void accelerate() {
-    m_pidControllerLeft.setReference(SpkRPMLeft, CANSparkMax.ControlType.kVelocity);
-    m_pidControllerRight.setReference(SpkRPMRight, CANSparkMax.ControlType.kVelocity);
+    leftShoot.set(1);
+    rightShoot.set(-1);
+    /*m_pidControllerLeft.setReference(SpkRPMLeft, CANSparkMax.ControlType.kVelocity);
+    m_pidControllerRight.setReference(SpkRPMRight, CANSparkMax.ControlType.kVelocity);*/
   }
 
   public void shootNote() {
@@ -158,6 +162,10 @@ public class Shooter extends SubsystemBase {
 
   public boolean getSensor() {
     return note_sensor.get();
+  }
+
+  public double shareEncoder(){
+    return pivot_motor.getPosition().getValueAsDouble();
   }
 
 }

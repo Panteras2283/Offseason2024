@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Feeder extends SubsystemBase {
-  private final CANSparkMax intake_motor = new CANSparkMax(Constants.FeederConstants.intakeMotorID, MotorType.kBrushless);
+  private final TalonFX intake_motor = new TalonFX(Constants.FeederConstants.intakeMotorID);
   private final CANSparkMax pivotLeft_motor = new CANSparkMax(Constants.FeederConstants.pivotLeft_ID, MotorType.kBrushed);
   private final CANSparkMax pivotRight_motor = new CANSparkMax(Constants.FeederConstants.pivotRight_ID, MotorType.kBrushed);
   private RelativeEncoder m_EncoderLeft;
@@ -35,7 +35,6 @@ public class Feeder extends SubsystemBase {
   public Feeder() {
     pivotLeft_motor.restoreFactoryDefaults();
     pivotRight_motor.restoreFactoryDefaults();
-    intake_motor.restoreFactoryDefaults();
 
     pivotLeft_motor.setInverted(true);
     m_EncoderLeft = pivotLeft_motor.getEncoder(SparkRelativeEncoder.Type.kQuadrature,8092);
@@ -77,8 +76,8 @@ public class Feeder extends SubsystemBase {
 
   public void intake_Note() {
     intake_motor.set(Constants.FeederConstants.intakeMotorSpeed);
-    PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_eatLeft, ControlType.kPosition);
-    PID_PivotControlRight.setReference(Constants.FeederConstants.POS_eatRight, ControlType.kPosition);
+    //PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_eatLeft, ControlType.kPosition);
+    //PID_PivotControlRight.setReference(Constants.FeederConstants.POS_eatRight, ControlType.kPosition);
   }
 
   public void saveFeeder() {
@@ -87,8 +86,14 @@ public class Feeder extends SubsystemBase {
     PID_PivotControlRight.setReference(Constants.FeederConstants.POS_initRight, ControlType.kPosition);
   }
 
+  public void sharePos() {
+
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left Pivot Encoder", m_EncoderLeft.getPosition());   
+    SmartDashboard.putNumber("Right Pivot Encoder", m_EncoderRight.getPosition());
   }
 }

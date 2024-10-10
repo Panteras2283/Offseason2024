@@ -62,7 +62,7 @@ public class RobotContainer {
             )
         );
 
-        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
+        //s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
 
         // Configure the button bindings
@@ -80,7 +80,7 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
         intake.onTrue(new Intake(s_Feeder, s_Shooter));
-        intake.onFalse(s_Feeder.getDefaultCommand());
+        //intake.onFalse(s_Feeder.getDefaultCommand());
         intake.onFalse(s_Shooter.getDefaultCommand());
 
         aim.onTrue(new Aim(s_Shooter, s_Limelight));

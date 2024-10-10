@@ -146,50 +146,50 @@ public final class Constants {
     }
 
     public static final class FeederConstants {
-        public static final int intakeMotorID = 12;
-        public static final double intakeMotorSpeed = -0.5;
+        public static final int intakeMotorID = 8;
+        public static final double intakeMotorSpeed = 1;
 
         public static final int pivotLeft_ID = 10;
         public static final int pivotRight_ID = 11;
 
-        public static final double POS_initLeft = -0.5713;
-        public static final double POS_initRight = 0.5635;
+        public static final double POS_initLeft = 0.633;
+        public static final double POS_initRight = -0.686;
         
-        public static final double POS_eatLeft = -0.0045;
-        public static final double POS_eatRight = -0.0012;
+        public static final double POS_eatLeft = 0.018;
+        public static final double POS_eatRight = -0.026;
 
         public static final double POS_ampLeft = -0.667;
         public static final double POS_ampRight = 0.652;
 
-        public static final double pivotKP = 3.5;
+        public static final double pivotKP = 2.25;
         public static final double pivotKI = 0;
         public static final double pivotKD = 0;
         public static final double pivotKIz = 0;
         public static final double pivotKFF = 0;
         public static final double KMinOutput = -1;
         public static final double kMaxOutput = 1;
-        public static final double maxVel = 1500;
+        public static final double maxVel = 2000;
         public static final double minVel = 0;
-        public static final double maxAcc = 700;
+        public static final double maxAcc = 900;
         public static final double allowedErr = 0;
     }
 
     public static final class ShooterConstants {
-        public static final int pivotMotorID = 15;
-        public static final int receiveNoteMotorID = 17;
-        public static final int LeftShootNoteMotorID = 18;
-        public static final int RightShootNoteMotorID = 19;
+        public static final int pivotMotorID = 9;
+        public static final int receiveNoteMotorID = 18;
+        public static final int LeftShootNoteMotorID = 16;
+        public static final int RightShootNoteMotorID = 17;
 
         
-        public static final double POS_init = 0;
-        public static final double POS_speaker = 0;
+        public static final double POS_init = 1.823;
+        public static final double POS_speaker = 2.866;
         public static final double POS_amp = 0;
-        public static final double POS_eat = 0;
+        public static final double POS_eat = 0.037;
         public static final double POS_source = 0;
         
-        public static final double kP = 18;        
+        public static final double kP = 1;        
         public static final double kI = 0;
-        public static final double kD = 0.1;
+        public static final double kD = 0;
         public static final double PeakForwardTorqueCurrent = 130;        
         public static final double PeakReverseTorqueCurrent = 130;
 
