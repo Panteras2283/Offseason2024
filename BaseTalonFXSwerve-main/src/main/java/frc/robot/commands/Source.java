@@ -4,19 +4,20 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.*;
+import com.fasterxml.jackson.databind.introspect.ConcreteBeanPropertyBase;
 
-public class DEFAULT_Feeder extends Command {
-  private Feeder Feeder;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Shooter;
+import frc.robot.Constants;
+
+
+public class Source extends Command {
   private Shooter Shooter;
-  /** Creates a new DEFAULT_Feeder. */
-  public DEFAULT_Feeder(Feeder Feeder, Shooter Shooter) {
-    this.Feeder = Feeder;
+  /** Creates a new Source. */
+  public Source(Shooter Shooter) {
     this.Shooter = Shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Feeder);
+    addRequirements(Shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -26,11 +27,8 @@ public class DEFAULT_Feeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(Shooter.shareEncoder()> Constants.ShooterConstants.POS_clear){
-      Feeder.saveFeeder();
-    } 
-    
+    Shooter.setPivot_Position(Constants.ShooterConstants.POS_source);
+    Shooter.receiveNote();
   }
 
   // Called once the command ends or is interrupted.

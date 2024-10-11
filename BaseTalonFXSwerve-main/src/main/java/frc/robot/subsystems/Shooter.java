@@ -92,8 +92,8 @@ public class Shooter extends SubsystemBase {
     TalonFXConfiguration configs = new TalonFXConfiguration();
 
     MotionMagicConfigs mm = configs.MotionMagic;
-    mm.MotionMagicCruiseVelocity = 6000; // 5 rotations per second cruise
-    mm.MotionMagicAcceleration = 45; //600 // Take approximately 0.5 seconds to reach max vel
+    mm.MotionMagicCruiseVelocity = 10 ; // 5 rotations per second cruise
+    mm.MotionMagicAcceleration = 70 ; //600 // Take approximately 0.5 seconds to reach max vel
     // Take approximately 0.2 seconds to reach max accel
     //mm.MotionMagicJerk = 5000; //10000
 
@@ -128,8 +128,8 @@ public class Shooter extends SubsystemBase {
 
   public void receiveNote() {
     receiveNote_motor.set(0.5);
-    leftShoot.set(-0.75);
-    rightShoot.set(0.75);
+    leftShoot.set(-1);
+    rightShoot.set(1);
   }
 
   public void accelerate() {

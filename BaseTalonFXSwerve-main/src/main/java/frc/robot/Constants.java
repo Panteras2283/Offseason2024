@@ -81,7 +81,7 @@ public final class Constants {
         /** Meters per Second */
         public static final double maxSpeed = 1; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 1.0; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 0.225; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
@@ -147,7 +147,7 @@ public final class Constants {
 
     public static final class FeederConstants {
         public static final int intakeMotorID = 8;
-        public static final double intakeMotorSpeed = 1;
+        public static final double intakeMotorSpeed = 0.7;
 
         public static final int pivotLeft_ID = 10;
         public static final int pivotRight_ID = 11;
@@ -155,19 +155,19 @@ public final class Constants {
         public static final double POS_initLeft = 0.633;
         public static final double POS_initRight = -0.686;
         
-        public static final double POS_eatLeft = 0.018;
-        public static final double POS_eatRight = -0.026;
+        public static final double POS_eatLeft = 0.045;
+        public static final double POS_eatRight = -0.040;
 
-        public static final double pivotKP = 2.25;
+        public static final double pivotKP = 3;
         public static final double pivotKI = 0;
         public static final double pivotKD = 0;
         public static final double pivotKIz = 0;
         public static final double pivotKFF = 0;
         public static final double KMinOutput = -1;
         public static final double kMaxOutput = 1;
-        public static final double maxVel = 2000;
+        public static final double maxVel = 10;
         public static final double minVel = 0;
-        public static final double maxAcc = 900;
+        public static final double maxAcc = 800;
         public static final double allowedErr = 0;
     }
 
@@ -181,12 +181,13 @@ public final class Constants {
         public static final double POS_init = 1.823;
         public static final double POS_speaker = 2.866;
         public static final double POS_amp = 2.344;
-        public static final double POS_eat = 0.1577;
-        public static final double POS_source = 0;
+        public static final double POS_eat = 0.15;
+        public static final double POS_source = 2.1911;
+        public static final double POS_clear = 1.8;
         
-        public static final double kP = 1; //18        
+        public static final double kP = 18; //18        
         public static final double kI = 0;
-        public static final double kD = 0; //0.1
+        public static final double kD = 0.1; //0.1
         public static final double PeakForwardTorqueCurrent = 130;        
         public static final double PeakReverseTorqueCurrent = 130;
 

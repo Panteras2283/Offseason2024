@@ -38,6 +38,7 @@ public class RobotContainer {
     private final JoystickButton cardinalS = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton cardinalO = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton cardinalE = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton source = new JoystickButton(codriver, XboxController.Button.kX.value);
 
     private final POVButton climb = new POVButton(codriver, 90);
 
@@ -66,7 +67,7 @@ public class RobotContainer {
             )
         );
 
-        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
+        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder,s_Shooter));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
 
         // Configure the button bindings
@@ -83,15 +84,18 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
-        intake.onTrue(new Intake(s_Feeder, s_Shooter));
+        /*intake.onTrue(new Intake(s_Feeder, s_Shooter));
         intake.onFalse(s_Feeder.getDefaultCommand());
-        intake.onFalse(s_Shooter.getDefaultCommand());
+        intake.onFalse(s_Shooter.getDefaultCommand());*/
 
-        aim.onTrue(new Aim(s_Shooter, s_Limelight));
-        aim.onFalse(s_Shooter.getDefaultCommand());
+        source.onTrue(new Source(s_Shooter));
+        source.onFalse(s_Shooter.getDefaultCommand());
         
         amp.onTrue(new Amp(s_Shooter));
         amp.onFalse(s_Shooter.getDefaultCommand());
+
+        aim.onTrue(new Speaker(s_Shooter, s_Limelight));
+        aim.onFalse(s_Shooter.getDefaultCommand());
 
         aim.onTrue(
             new TurretSwerve(

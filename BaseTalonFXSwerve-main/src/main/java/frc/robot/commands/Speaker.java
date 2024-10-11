@@ -5,42 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight;
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;;
 
-public class Aim extends Command {
+public class Speaker extends Command {
   private Shooter Shooter;
   private Limelight Limelight;
-  private PIDController limelightSpeakerPID;
-  /** Creates a new Aim. */
-  public Aim(Shooter Shooter, Limelight Limelight) {
+  public PIDController limelightPID;
+  /** Creates a new Speaker. */
+  public Speaker(Shooter Shooter, Limelight Limelight) {
     this.Shooter = Shooter;
     this.Limelight = Limelight;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Shooter, Limelight);
+    addRequirements(Shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Aim");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limelightSpeakerPID =  new PIDController(0.01, 0.009,  0);
+    limelightPID = new PIDController(0.01, 0.0001, 0);
+    
+    if (Limelight.getArea() > 0) {
+      Shooter.manualControl(limelightPID.calculate(Limelight.getTY(), 0));
+    }else {
+      Shooter.setPivot_Position(Constants.ShooterConstants.POS_speaker);
+    }
 
-    Shooter.setPivot_Position(Constants.ShooterConstants.POS_speaker);
-
-    //if (Limelight.getArea() > 0) {
-      //Shooter.manualControl(limelightSpeakerPID.calculate(Limelight.getTY(), 0));
-    //} else {
-      
-    //}
     Shooter.accelerate();
   }
 
