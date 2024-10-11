@@ -93,9 +93,9 @@ public class Shooter extends SubsystemBase {
 
     MotionMagicConfigs mm = configs.MotionMagic;
     mm.MotionMagicCruiseVelocity = 6000; // 5 rotations per second cruise
-    mm.MotionMagicAcceleration = 60; // Take approximately 0.5 seconds to reach max vel
-    // Take approximately 0.2 seconds to reach max accel 
-    //mm.MotionMagicJerk = 5000;
+    mm.MotionMagicAcceleration = 45; //600 // Take approximately 0.5 seconds to reach max vel
+    // Take approximately 0.2 seconds to reach max accel
+    //mm.MotionMagicJerk = 5000; //10000
 
     Slot0Configs slot0 = configs.Slot0;
 
@@ -141,6 +141,11 @@ public class Shooter extends SubsystemBase {
 
   public void shootNote() {
     receiveNote_motor.set(-0.5);
+  }
+
+  public void amp() {
+    leftShoot.set(0.25);
+    rightShoot.set(-0.25);
   }
 
   public void STOP_Receiver() {

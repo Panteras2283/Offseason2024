@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -33,16 +33,20 @@ public class RobotContainer {
     private final JoystickButton intake = new JoystickButton(codriver, XboxController.Button.kY.value);
     private final JoystickButton aim = new JoystickButton(codriver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton shoot = new JoystickButton(codriver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton amp = new JoystickButton(codriver, XboxController.Button.kA.value);
     private final JoystickButton cardinalN = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton cardinalS = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton cardinalO = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton cardinalE = new JoystickButton(driver, XboxController.Button.kB.value);
+
+    private final POVButton climb = new POVButton(codriver, 90);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();    
     private final Feeder s_Feeder = new Feeder();
     private final Shooter s_Shooter = new Shooter();
     private final Limelight s_Limelight = new Limelight();
+    private final Climber s_Climber = new Climber();
 
 
 
@@ -62,7 +66,7 @@ public class RobotContainer {
             )
         );
 
-        //s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
+        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
 
         // Configure the button bindings
@@ -80,14 +84,38 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
         intake.onTrue(new Intake(s_Feeder, s_Shooter));
-        //intake.onFalse(s_Feeder.getDefaultCommand());
+        intake.onFalse(s_Feeder.getDefaultCommand());
         intake.onFalse(s_Shooter.getDefaultCommand());
 
         aim.onTrue(new Aim(s_Shooter, s_Limelight));
         aim.onFalse(s_Shooter.getDefaultCommand());
         
+        amp.onTrue(new Amp(s_Shooter));
+        amp.onFalse(s_Shooter.getDefaultCommand());
+
+        aim.onTrue(
+            new TurretSwerve(
+                s_Limelight,
+                s_Swerve,
+                () -> -driver.getRawAxis(translationAxis), 
+                () -> -driver.getRawAxis(strafeAxis), 
+                () -> -driver.getRawAxis(rotationAxis), 
+                () -> robotCentric.getAsBoolean()
+            )
+        );
+
+        aim.onFalse(
+            s_Swerve.getDefaultCommand()
+        );
+        
         shoot.onTrue(new InstantCommand(() -> s_Shooter.shootNote()));
         shoot.onFalse(new InstantCommand(() -> s_Shooter.STOP_Receiver()));
+
+        climb.onTrue(new InstantCommand(() -> s_Climber.up()));
+        climb.onFalse(new InstantCommand(() -> s_Climber.down()));
+
+        amp.onTrue(new InstantCommand(() -> s_Climber.stickOut()));
+        amp.onFalse(new InstantCommand(() -> s_Climber.stickIn()));
 
     }
 

@@ -6,18 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Shooter;
 
-
-public class Intake extends Command {
-  private Feeder Feeder;
+public class Amp extends Command {
+  /** Creates a new Amp. */
   private Shooter Shooter;
-  /** Creates a new Intake. */
-  public Intake(Feeder Feeder, Shooter Shooter) {
-    this.Feeder = Feeder;
+  public Amp(Shooter Shooter) {
     this.Shooter = Shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Feeder, Shooter);
+    addRequirements(Shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -27,12 +24,8 @@ public class Intake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Feeder.intake_Note();
-    Shooter.receiveNote();
-
-    if(Feeder.sharePos()<= Constants.FeederConstants.POS_eatLeft+0.2 && Shooter.shareEncoder()>= Constants.ShooterConstants.POS_init-0.2){
-      Shooter.setPivot_Position(Constants.ShooterConstants.POS_eat);
-    } 
+    Shooter.setPivot_Position(Constants.ShooterConstants.POS_amp);
+    Shooter.amp();
   }
 
   // Called once the command ends or is interrupted.
@@ -42,10 +35,6 @@ public class Intake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Shooter.getSensor() == false) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

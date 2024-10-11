@@ -76,8 +76,8 @@ public class Feeder extends SubsystemBase {
 
   public void intake_Note() {
     intake_motor.set(Constants.FeederConstants.intakeMotorSpeed);
-    //PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_eatLeft, ControlType.kPosition);
-    //PID_PivotControlRight.setReference(Constants.FeederConstants.POS_eatRight, ControlType.kPosition);
+    PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_eatLeft, ControlType.kPosition);
+    PID_PivotControlRight.setReference(Constants.FeederConstants.POS_eatRight, ControlType.kPosition);
   }
 
   public void saveFeeder() {
@@ -86,8 +86,8 @@ public class Feeder extends SubsystemBase {
     PID_PivotControlRight.setReference(Constants.FeederConstants.POS_initRight, ControlType.kPosition);
   }
 
-  public void sharePos() {
-
+  public double sharePos() {
+    return m_EncoderLeft.getPosition();
   }
 
   @Override

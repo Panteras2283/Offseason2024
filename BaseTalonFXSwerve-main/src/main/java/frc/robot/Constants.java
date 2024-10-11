@@ -158,9 +158,6 @@ public final class Constants {
         public static final double POS_eatLeft = 0.018;
         public static final double POS_eatRight = -0.026;
 
-        public static final double POS_ampLeft = -0.667;
-        public static final double POS_ampRight = 0.652;
-
         public static final double pivotKP = 2.25;
         public static final double pivotKI = 0;
         public static final double pivotKD = 0;
@@ -183,13 +180,13 @@ public final class Constants {
         
         public static final double POS_init = 1.823;
         public static final double POS_speaker = 2.866;
-        public static final double POS_amp = 0;
-        public static final double POS_eat = 0.037;
+        public static final double POS_amp = 2.344;
+        public static final double POS_eat = 0.1577;
         public static final double POS_source = 0;
         
-        public static final double kP = 1;        
+        public static final double kP = 1; //18        
         public static final double kI = 0;
-        public static final double kD = 0;
+        public static final double kD = 0; //0.1
         public static final double PeakForwardTorqueCurrent = 130;        
         public static final double PeakReverseTorqueCurrent = 130;
 

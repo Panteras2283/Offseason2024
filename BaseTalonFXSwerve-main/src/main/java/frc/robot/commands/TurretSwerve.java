@@ -33,12 +33,10 @@ public class TurretSwerve extends Command {
     DoubleSupplier rotationSup, 
     BooleanSupplier robotCentricSup
   ) {
+    addRequirements(s_Swerve, l_Limelight);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.l_Limelight =l_Limelight;
+    this.l_Limelight = l_Limelight;
     this.s_Swerve = s_Swerve;
-
-    addRequirements(l_Limelight, s_Swerve);
-
     this.translationSup = translationSup;
     this.strafeSup = strafeSup;
     this.rotationSup = rotationSup;
@@ -57,15 +55,28 @@ public class TurretSwerve extends Command {
     double translationVal = (Math.pow(MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband), 1));
     double strafeVal = (Math.pow(MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband), 1));
     double rotationVal = (Math.pow(MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband), 1));
+    double offsetX = translationVal*7;
 
-    limelightPID = new PIDController(1, 0.00006, 0);
+    limelightPID = new PIDController(0.01, 0.0009, 0);
+               
+    
+   
 
-    s_Swerve.drive(
+    if(l_Limelight.getArea()>0){ 
+      s_Swerve.drive(
       new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-      limelightPID.calculate(l_Limelight.getTX(), 0) * Constants.Swerve.maxAngularVelocity, 
+      limelightPID.calculate(l_Limelight.getTX(), offsetX) * Constants.Swerve.maxAngularVelocity, 
       !robotCentricSup.getAsBoolean(), 
       true);
-      
+      System.out.println("DETECTANDO APRILTAG");
+    }
+    else{
+        s_Swerve.drive(
+        new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
+        rotationVal * Constants.Swerve.maxAngularVelocity, 
+        !robotCentricSup.getAsBoolean(), 
+        true);
+    }
   }
 
   // Called once the command ends or is interrupted.
