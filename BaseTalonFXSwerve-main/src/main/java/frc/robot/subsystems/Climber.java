@@ -29,11 +29,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void up() {
-    m_doubleSolenoidCLIMBER.set(DoubleSolenoid.Value.kForward);
+    m_doubleSolenoidCLIMBER.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void down() {
-    m_doubleSolenoidCLIMBER.set(DoubleSolenoid.Value.kReverse);
+    m_doubleSolenoidCLIMBER.set(DoubleSolenoid.Value.kForward);
   }
 
   public void stickOut() {
