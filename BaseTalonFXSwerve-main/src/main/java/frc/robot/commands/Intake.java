@@ -5,19 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
 
 public class Intake extends Command {
   private Feeder Feeder;
-  private Shooter Shooter;
   /** Creates a new Intake. */
-  public Intake(Feeder Feeder, Shooter Shooter) {
+  public Intake(Feeder Feeder) {
     this.Feeder = Feeder;
-    this.Shooter = Shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Feeder, Shooter);
+    addRequirements(Feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -28,11 +25,6 @@ public class Intake extends Command {
   @Override
   public void execute() {
     Feeder.intake_Note();
-    Shooter.receiveNote();
-
-    if(Feeder.sharePos()<= Constants.FeederConstants.POS_eatLeft+0.2 && Shooter.shareEncoder()>= Constants.ShooterConstants.POS_init-0.2){
-      Shooter.setPivot_Position(Constants.ShooterConstants.POS_eat);
-    } 
   }
 
   // Called once the command ends or is interrupted.
@@ -42,10 +34,6 @@ public class Intake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Shooter.getSensor() == false) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

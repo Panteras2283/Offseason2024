@@ -133,14 +133,14 @@ public class Shooter extends SubsystemBase {
   }
 
   public void accelerate() {
-    leftShoot.set(1);
-    rightShoot.set(-1);
+    leftShoot.set(0.9);
+    rightShoot.set(-0.9);
     /*m_pidControllerLeft.setReference(SpkRPMLeft, CANSparkMax.ControlType.kVelocity);
     m_pidControllerRight.setReference(SpkRPMRight, CANSparkMax.ControlType.kVelocity);*/
   }
 
   public void shootNote() {
-    receiveNote_motor.set(-0.5);
+    receiveNote_motor.set(-0.75);
   }
 
   public void amp() {

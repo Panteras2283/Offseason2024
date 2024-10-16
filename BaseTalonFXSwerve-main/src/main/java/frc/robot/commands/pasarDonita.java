@@ -5,43 +5,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Limelight;
-import edu.wpi.first.math.controller.PIDController;
+import frc.robot.subsystems.*;
 
-public class Aim extends Command {
+public class pasarDonita extends Command {
+  private Feeder Feeder;
   private Shooter Shooter;
-  private Limelight Limelight;
-  private PIDController limelightSpeakerPID;
-  /** Creates a new Aim. */
-  public Aim(Shooter Shooter, Limelight Limelight) {
+  /** Creates a new pasarDonita. */
+  public pasarDonita(Feeder Feeder, Shooter Shooter) {
+    this.Feeder = Feeder;
     this.Shooter = Shooter;
-    this.Limelight = Limelight;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Shooter, Limelight);
+    addRequirements(Feeder, Shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("Aim");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limelightSpeakerPID =  new PIDController(0.01, 0.009,  0);
+    Feeder.handoffFeeder();
 
-    Shooter.setPivot_Position(Constants.ShooterConstants.POS_speaker);
+    if (Feeder.sharePos() <= Constants.FeederConstants.POS_handoffLeft + 0.05) {
+      Shooter.setPivot_Position(Constants.ShooterConstants.POS_handoff);
+      Shooter.receiveNote();
+    }
 
-    //if (Limelight.getArea() > 0) {
-      //Shooter.manualControl(limelightSpeakerPID.calculate(Limelight.getTY(), 0));
-    //} else {
-      
-    //}
-    Shooter.accelerate();
+    if (Shooter.shareEncoder() <= Constants.ShooterConstants.POS_handoff + 0.05) {
+      Feeder.deposit_donut();
+    }
+
   }
 
   // Called once the command ends or is interrupted.
@@ -51,6 +46,10 @@ public class Aim extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Shooter.getSensor() == false) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -81,7 +81,7 @@ public final class Constants {
         /** Meters per Second */
         public static final double maxSpeed = 1; //TODO: This must be tuned to specific robot
         /** Radians per Second */
-        public static final double maxAngularVelocity = 0.225; //TODO: This must be tuned to specific robot
+        public static final double maxAngularVelocity = 0.4; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
         public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
@@ -158,6 +158,9 @@ public final class Constants {
         public static final double POS_eatLeft = 0.045;
         public static final double POS_eatRight = -0.040;
 
+        public static final double POS_handoffLeft = 0.519;
+        public static final double POS_handoffRight = -0.526;
+
         public static final double pivotKP = 3;
         public static final double pivotKI = 0;
         public static final double pivotKD = 0;
@@ -184,6 +187,7 @@ public final class Constants {
         public static final double POS_eat = 0.15;
         public static final double POS_source = 2.1911;
         public static final double POS_clear = 1.8;
+        public static final double POS_handoff = 0.628;
         
         public static final double kP = 18; //18        
         public static final double kI = 0;

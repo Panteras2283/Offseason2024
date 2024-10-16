@@ -39,6 +39,7 @@ public class RobotContainer {
     private final JoystickButton cardinalO = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton cardinalE = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton source = new JoystickButton(codriver, XboxController.Button.kX.value);
+    private final JoystickButton handoff = new JoystickButton(codriver, XboxController.Button.kB.value);
 
     private final POVButton climb = new POVButton(codriver, 90);
 
@@ -84,9 +85,8 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
 
-        /*intake.onTrue(new Intake(s_Feeder, s_Shooter));
+        intake.onTrue(new Intake(s_Feeder));
         intake.onFalse(s_Feeder.getDefaultCommand());
-        intake.onFalse(s_Shooter.getDefaultCommand());*/
 
         source.onTrue(new Source(s_Shooter));
         source.onFalse(s_Shooter.getDefaultCommand());
@@ -120,6 +120,10 @@ public class RobotContainer {
 
         amp.onTrue(new InstantCommand(() -> s_Climber.stickOut()));
         amp.onFalse(new InstantCommand(() -> s_Climber.stickIn()));
+
+        handoff.onTrue(new pasarDonita(s_Feeder, s_Shooter));
+        handoff.onFalse(s_Shooter.getDefaultCommand());
+        handoff.onFalse(s_Feeder.getDefaultCommand());
 
     }
 

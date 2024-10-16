@@ -38,6 +38,10 @@ public class Source extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Shooter.getSensor() == false) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

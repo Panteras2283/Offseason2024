@@ -57,7 +57,7 @@ public class TurretSwerve extends Command {
     double rotationVal = (Math.pow(MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband), 1));
     double offsetX = translationVal*7;
 
-    limelightPID = new PIDController(0.01, 0.0009, 0);
+    limelightPID = new PIDController(0.05, 0.0009, 0);
                
     
    

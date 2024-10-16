@@ -86,6 +86,15 @@ public class Feeder extends SubsystemBase {
     PID_PivotControlRight.setReference(Constants.FeederConstants.POS_initRight, ControlType.kPosition);
   }
 
+  public void handoffFeeder() {
+    PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_handoffLeft, ControlType.kPosition);
+    PID_PivotControlRight.setReference(Constants.FeederConstants.POS_handoffRight, ControlType.kPosition);
+  }
+
+  public void deposit_donut() {
+    intake_motor.set(Constants.FeederConstants.intakeMotorSpeed);
+  }
+
   public double sharePos() {
     return m_EncoderLeft.getPosition();
   }
