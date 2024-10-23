@@ -42,6 +42,7 @@ public class RobotContainer {
     private final JoystickButton handoff = new JoystickButton(codriver, XboxController.Button.kB.value);
 
     private final POVButton climb = new POVButton(codriver, 90);
+    private final POVButton sniper = new POVButton(codriver, 180);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();    
@@ -97,6 +98,9 @@ public class RobotContainer {
         aim.onTrue(new Speaker(s_Shooter, s_Limelight));
         aim.onFalse(s_Shooter.getDefaultCommand());
 
+        sniper.onTrue(new Sniper_Speaker(s_Shooter, s_Limelight));
+        sniper.onFalse(s_Shooter.getDefaultCommand());
+
         aim.onTrue(
             new TurretSwerve(
                 s_Limelight,
@@ -109,6 +113,21 @@ public class RobotContainer {
         );
 
         aim.onFalse(
+            s_Swerve.getDefaultCommand()
+        );
+
+        sniper.onTrue(
+            new Sniper_TurretSwerve(
+                s_Limelight,
+                s_Swerve,
+                () -> -driver.getRawAxis(translationAxis), 
+                () -> -driver.getRawAxis(strafeAxis), 
+                () -> -driver.getRawAxis(rotationAxis), 
+                () -> robotCentric.getAsBoolean()
+            )
+        );
+
+        sniper.onFalse(
             s_Swerve.getDefaultCommand()
         );
         

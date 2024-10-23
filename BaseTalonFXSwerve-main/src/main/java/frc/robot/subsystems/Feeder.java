@@ -26,6 +26,8 @@ public class Feeder extends SubsystemBase {
   private final TalonFX intake_motor = new TalonFX(Constants.FeederConstants.intakeMotorID);
   private final CANSparkMax pivotLeft_motor = new CANSparkMax(Constants.FeederConstants.pivotLeft_ID, MotorType.kBrushed);
   private final CANSparkMax pivotRight_motor = new CANSparkMax(Constants.FeederConstants.pivotRight_ID, MotorType.kBrushed);
+  private final DigitalInput note_sensor = new DigitalInput(2);
+  private final DigitalInput note_sensor2 = new DigitalInput(3);
   private RelativeEncoder m_EncoderLeft;
   private RelativeEncoder m_EncoderRight;
   private SparkPIDController PID_PivotControlLeft;
@@ -99,10 +101,21 @@ public class Feeder extends SubsystemBase {
     return m_EncoderLeft.getPosition();
   }
 
+  public boolean getSensor() {
+    return note_sensor.get();
+  }
+
+  public boolean getSensor2() {
+    return note_sensor2.get();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Left Pivot Encoder", m_EncoderLeft.getPosition());   
-    SmartDashboard.putNumber("Right Pivot Encoder", m_EncoderRight.getPosition());
+    SmartDashboard.putNumber("Right Pivot Encoder", m_EncoderRight.getPosition());    
+    SmartDashboard.putBoolean("Feeder Sensor 1", note_sensor.get());
+    SmartDashboard.putBoolean("Feeder Sensor 2", note_sensor2.get());
+
   }
 }

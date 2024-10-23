@@ -15,7 +15,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
-public class TurretSwerve extends Command {
+public class Sniper_TurretSwerve extends Command {
   private Swerve s_Swerve;
   private Limelight l_Limelight;
   private DoubleSupplier translationSup;
@@ -25,7 +25,7 @@ public class TurretSwerve extends Command {
   public PIDController limelightPID;
 
   /** Creates a new TurretSwerve. */
-  public TurretSwerve(
+  public Sniper_TurretSwerve(
     Limelight l_Limelight,
     Swerve s_Swerve, 
     DoubleSupplier translationSup, 
@@ -46,7 +46,7 @@ public class TurretSwerve extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    l_Limelight.SelectPipeline(0);
+    l_Limelight.SelectPipeline(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   private static final int PH_CAN_ID = 2;
-  private static int AMPforwardChannel =0;
-  private static int AMPreverseChannel =1;
+  private static int AMPforwardChannel =13;
+  private static int AMPreverseChannel =12;
   private static int climberForwardChannel =14;
   private static int climberReverseChannel =15;
   PneumaticHub m_pH = new PneumaticHub(PH_CAN_ID);

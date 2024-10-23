@@ -11,6 +11,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants;
 
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -44,7 +45,7 @@ public class Shooter extends SubsystemBase {
   private RelativeEncoder m_encoderLeft;
   private RelativeEncoder m_encoderRight;
 
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, AmpRPM, SpkRPMLeft, SpkRPMRight;
+  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, LeftAmpRPM, RightAmpRPM, SpkRPMLeft, SpkRPMRight, S_SpkRPMLeft, S_SPKRPMRight;
 
 
   /** Creates a new Shooter. */
@@ -59,8 +60,9 @@ public class Shooter extends SubsystemBase {
     kFF = Constants.ShooterConstants.velFF; 
     kMaxOutput = Constants.ShooterConstants.velMaxOut; 
     kMinOutput = Constants.ShooterConstants.velMinOut;
-    AmpRPM = Constants.ShooterConstants.AMP_vel;
+    LeftAmpRPM = Constants.ShooterConstants.LeftAMP_vel;
     SpkRPMLeft = Constants.ShooterConstants.SPKLeft_vel;
+    S_SpkRPMLeft = Constants.ShooterConstants.S_SPKLeft_vel;
 
     m_pidControllerLeft.setP(kP);
     m_pidControllerLeft.setI(kI);
@@ -79,8 +81,9 @@ public class Shooter extends SubsystemBase {
     kFF = Constants.ShooterConstants.velFF; 
     kMaxOutput = Constants.ShooterConstants.velMaxOut; 
     kMinOutput = Constants.ShooterConstants.velMinOut;
-    AmpRPM = Constants.ShooterConstants.AMP_vel;
+    RightAmpRPM = Constants.ShooterConstants.RightAMP_vel;
     SpkRPMRight = Constants.ShooterConstants.SPKRight_vel;
+    S_SPKRPMRight = Constants.ShooterConstants.SPKLeft_vel;
 
     m_pidControllerRight.setP(kP);
     m_pidControllerRight.setI(kI);
@@ -133,10 +136,13 @@ public class Shooter extends SubsystemBase {
   }
 
   public void accelerate() {
-    leftShoot.set(0.9);
-    rightShoot.set(-0.9);
-    /*m_pidControllerLeft.setReference(SpkRPMLeft, CANSparkMax.ControlType.kVelocity);
-    m_pidControllerRight.setReference(SpkRPMRight, CANSparkMax.ControlType.kVelocity);*/
+    m_pidControllerLeft.setReference(SpkRPMLeft, ControlType.kVelocity);
+    m_pidControllerRight.setReference(SpkRPMRight, ControlType.kVelocity);
+  }
+
+  public void SNIPER_accelerate() {
+    m_pidControllerLeft.setReference(S_SpkRPMLeft, ControlType.kVelocity);
+    m_pidControllerRight.setReference(S_SPKRPMRight, ControlType.kVelocity);
   }
 
   public void shootNote() {
@@ -144,8 +150,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void amp() {
-    leftShoot.set(0.25);
-    rightShoot.set(-0.25);
+    m_pidControllerLeft.setReference(LeftAmpRPM, ControlType.kVelocity);
+    m_pidControllerRight.setReference(RightAmpRPM, ControlType.kVelocity);
   }
 
   public void STOP_Receiver() {
