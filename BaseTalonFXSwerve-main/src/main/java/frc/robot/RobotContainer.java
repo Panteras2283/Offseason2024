@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.fasterxml.jackson.core.sym.Name;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -71,6 +74,12 @@ public class RobotContainer {
 
         s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder,s_Shooter));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
+
+        
+        NamedCommands.registerCommand("Feeder Default", new DEFAULT_Feeder(s_Feeder, s_Shooter));
+        NamedCommands.registerCommand("Shooter Default", new DEFAULT_Shooter(s_Shooter));
+        NamedCommands.registerCommand("Handoff Action", new pasarDonita(s_Feeder, s_Shooter));
+        NamedCommands.registerCommand("Intake", new Intake(s_Feeder));
 
         // Configure the button bindings
         configureButtonBindings();
@@ -153,6 +162,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        return new PathPlannerAuto("CENTER");
     }
 }

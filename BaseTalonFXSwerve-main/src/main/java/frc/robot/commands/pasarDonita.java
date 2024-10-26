@@ -31,11 +31,14 @@ public class pasarDonita extends Command {
     if (Feeder.sharePos() <= Constants.FeederConstants.POS_handoffLeft + 0.05) {
       Shooter.setPivot_Position(Constants.ShooterConstants.POS_handoff);
       Shooter.receiveNote();
+      if (Shooter.shareEncoder() <= Constants.ShooterConstants.POS_handoff + 0.05) {
+        Feeder.deposit_donut();
+      } else {
+        Feeder.recorrer_nota();
+      }
     }
 
-    if (Shooter.shareEncoder() <= Constants.ShooterConstants.POS_handoff + 0.05) {
-      Feeder.deposit_donut();
-    }
+    
 
   }
 

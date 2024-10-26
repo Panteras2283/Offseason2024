@@ -83,7 +83,7 @@ public class Shooter extends SubsystemBase {
     kMinOutput = Constants.ShooterConstants.velMinOut;
     RightAmpRPM = Constants.ShooterConstants.RightAMP_vel;
     SpkRPMRight = Constants.ShooterConstants.SPKRight_vel;
-    S_SPKRPMRight = Constants.ShooterConstants.SPKLeft_vel;
+    S_SPKRPMRight = Constants.ShooterConstants.S_SPKRight_vel;
 
     m_pidControllerRight.setP(kP);
     m_pidControllerRight.setI(kI);

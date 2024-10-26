@@ -97,6 +97,10 @@ public class Feeder extends SubsystemBase {
     intake_motor.set(Constants.FeederConstants.intakeMotorSpeed);
   }
 
+  public void recorrer_nota() {
+    intake_motor.set(-0.1);
+  }
+
   public double sharePos() {
     return m_EncoderLeft.getPosition();
   }
