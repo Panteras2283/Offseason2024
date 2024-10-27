@@ -8,17 +8,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.LED_Driver;
 import frc.robot.subsystems.Shooter;
 
 public class HailMary extends Command {
   private Shooter Shooter;
   private Feeder Feeder;
+  private LED_Driver LED_Driver;
   /** Creates a new HailMary. */
-  public HailMary(Shooter Shooter, Feeder Feeder) {
+  public HailMary(Shooter Shooter, Feeder Feeder, LED_Driver LED_Driver) {
     this.Shooter = Shooter;
     this.Feeder = Feeder;
+    this.LED_Driver = LED_Driver;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Shooter, Feeder);
+    addRequirements(Shooter, Feeder, LED_Driver);
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +34,11 @@ public class HailMary extends Command {
     Shooter.setPivot_Position(Constants.ShooterConstants.POS_HailMary);
     Feeder.intake_HM();
     Shooter.accelerate();
+
+     if(Shooter.shareSpeed()>=Constants.ShooterConstants.S_SPKLeft_vel - 5){
+      LED_Driver.setPreset6();
+      Shooter.shootNote();
+    }
   }
 
   // Called once the command ends or is interrupted.
