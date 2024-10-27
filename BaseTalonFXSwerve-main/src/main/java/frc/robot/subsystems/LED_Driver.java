@@ -191,5 +191,87 @@ public class LED_Driver extends SubsystemBase {
   }
   }
 
+   public void setPreset5(){
+
+    try {
+      // The URL you want to request
+      String targetUrl = "http://10.22.83.100/win&PL=5";
+
+      // Create a URL object
+      URL url = new URL(targetUrl);
+
+      // Open a connection to the URL
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+      // Set request method to GET
+      connection.setRequestMethod("GET");
+
+      // Optional: Set request headers (if needed)
+      // connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+      // Get the response code (HTTP status)
+      int responseCode = connection.getResponseCode();
+      //System.out.println("Response Code: " + responseCode);
+
+      // Read the response content
+      BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      String line;
+      StringBuilder responseContent = new StringBuilder();
+      while ((line = reader.readLine()) != null) {
+          responseContent.append(line);
+      }
+      reader.close();
+
+      // Print the response content
+      //System.out.println("Response Content:\n" + responseContent.toString());
+
+      // Close the connection
+      connection.disconnect();
+  } catch (Exception e) {
+      e.printStackTrace();
+  }
+  }
+
+  public void setPreset6(){
+
+    try {
+      // The URL you want to request
+      String targetUrl = "http://10.22.83.100/win&PL=6";
+
+      // Create a URL object
+      URL url = new URL(targetUrl);
+
+      // Open a connection to the URL
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+      // Set request method to GET
+      connection.setRequestMethod("GET");
+
+      // Optional: Set request headers (if needed)
+      // connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+      // Get the response code (HTTP status)
+      int responseCode = connection.getResponseCode();
+      //System.out.println("Response Code: " + responseCode);
+
+      // Read the response content
+      BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      String line;
+      StringBuilder responseContent = new StringBuilder();
+      while ((line = reader.readLine()) != null) {
+          responseContent.append(line);
+      }
+      reader.close();
+
+      // Print the response content
+      //System.out.println("Response Content:\n" + responseContent.toString());
+
+      // Close the connection
+      connection.disconnect();
+  } catch (Exception e) {
+      e.printStackTrace();
+  }
+  }
+
   
 }

@@ -193,6 +193,8 @@ public final class Constants {
         public static final double POS_handoff = 0.4836;
         public static final double POS_climb = 3.3471;
         public static final double POS_firstAim = 2.344;
+        public static final double POS_HailMary = 1.03418;
+
         
         public static final double kP = 18; //18        
         public static final double kI = 0;

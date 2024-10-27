@@ -44,9 +44,11 @@ public class RobotContainer {
     private final JoystickButton source = new JoystickButton(codriver, XboxController.Button.kX.value);
     private final JoystickButton handoff = new JoystickButton(codriver, XboxController.Button.kB.value);
 
+
     private final POVButton climb = new POVButton(codriver, 90);
     private final POVButton sniper = new POVButton(codriver, 180);
     private final POVButton cardinalSource = new POVButton(driver, 270);
+    private final POVButton HailMary = new POVButton(codriver, 0);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();    
@@ -83,7 +85,7 @@ public class RobotContainer {
 
 
         
-        NamedCommands.registerCommand("Speaker Aim", new AutoSpeaker(s_Shooter, s_Limelight).withTimeout(5));
+        NamedCommands.registerCommand("Speaker Aim", new AutoSpeaker(s_Shooter, s_Limelight, s_Led_Driver).withTimeout(5));
         NamedCommands.registerCommand("First Aim", new FirstSpeaker(s_Shooter).withTimeout(2));
         NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> s_Shooter.shootNote()));
         NamedCommands.registerCommand("Intake Note", new AutoIntake(s_Feeder, s_Shooter, s_Limelight).withTimeout(5));
@@ -115,7 +117,7 @@ public class RobotContainer {
         amp.onTrue(new Amp(s_Shooter));
         amp.onFalse(s_Shooter.getDefaultCommand());
 
-        aim.onTrue(new Speaker(s_Shooter, s_Limelight));
+        aim.onTrue(new Speaker(s_Shooter, s_Limelight, s_Led_Driver));
         aim.onFalse(s_Shooter.getDefaultCommand());
 
         sniper.onTrue(new Sniper_Speaker(s_Shooter, s_Limelight));
@@ -154,7 +156,7 @@ public class RobotContainer {
         shoot.onTrue(new InstantCommand(() -> s_Shooter.shootNote()));
         shoot.onFalse(new InstantCommand(() -> s_Shooter.STOP_Receiver()));
 
-        climb.onFalse(new Climb(s_Climber, s_Shooter, s_Feeder));
+        climb.onFalse(new Climb(s_Climber, s_Shooter, s_Feeder, s_Led_Driver));
         climb.onTrue(new InstantCommand(() -> s_Climber.up()));
         climb.onFalse(new InstantCommand(() -> s_Climber.down()));
 
@@ -164,6 +166,10 @@ public class RobotContainer {
         handoff.onTrue(new pasarDonita(s_Feeder, s_Shooter));
         handoff.onFalse(s_Shooter.getDefaultCommand());
         handoff.onFalse(s_Feeder.getDefaultCommand());
+
+        HailMary.onTrue(new HailMary(s_Shooter, s_Feeder));
+        HailMary.onFalse(s_Shooter.getDefaultCommand());
+        HailMary.onFalse(s_Feeder.getDefaultCommand());
 
     }
 

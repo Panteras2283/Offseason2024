@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.LED_Driver;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -15,11 +16,11 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoSpeaker extends SequentialCommandGroup {
   /** Creates a new AutoSpeaker. */
-  public AutoSpeaker(Shooter Shooter, Limelight Limelight) {
+  public AutoSpeaker(Shooter Shooter, Limelight Limelight, LED_Driver LED_Driver) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Speaker(Shooter, Limelight),
+      new Speaker(Shooter, Limelight, LED_Driver),
       new WaitCommand(1)
     );
   }

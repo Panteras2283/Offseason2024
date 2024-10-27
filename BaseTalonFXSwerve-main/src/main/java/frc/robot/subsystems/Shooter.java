@@ -140,6 +140,12 @@ public class Shooter extends SubsystemBase {
     m_pidControllerRight.setReference(SpkRPMRight, ControlType.kVelocity);
   }
 
+  public double shareSpeed(){
+  
+    return m_encoderLeft.getVelocity();
+
+  }
+
   public void SNIPER_accelerate() {
     m_pidControllerLeft.setReference(S_SpkRPMLeft, ControlType.kVelocity);
     m_pidControllerRight.setReference(S_SPKRPMRight, ControlType.kVelocity);

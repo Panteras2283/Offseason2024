@@ -65,7 +65,7 @@ public class TeleopSwerve extends Command {
                 targetAngle=225;
             }
             else if (cardSouth.getAsBoolean()==true){
-                targetAngle=202.5;
+                targetAngle=180;
             }
             else if (cardEast.getAsBoolean()==true){
                 targetAngle=270;
@@ -74,7 +74,7 @@ public class TeleopSwerve extends Command {
                 targetAngle=90;
             }
             else if (cardSource.getAsBoolean()==true){
-                targetAngle=45;
+                targetAngle=202.5;
             }
 
             s_Swerve.lockDrive(

@@ -8,18 +8,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LED_Driver;
 import edu.wpi.first.math.controller.PIDController;
 
 public class Speaker extends Command {
   private Shooter Shooter;
   private Limelight Limelight;
+  private LED_Driver LED_Driver;
   public PIDController limelightPID;
   /** Creates a new Speaker. */
-  public Speaker(Shooter Shooter, Limelight Limelight) {
+  public Speaker(Shooter Shooter, Limelight Limelight, LED_Driver LED_Driver) {
     this.Shooter = Shooter;
     this.Limelight = Limelight;
+    this.LED_Driver = LED_Driver;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Shooter);
+    addRequirements(Shooter, LED_Driver);
   }
 
   // Called when the command is initially scheduled.
@@ -39,6 +42,11 @@ public class Speaker extends Command {
     }
 
     Shooter.accelerate();
+
+    if(Shooter.shareSpeed()<=Constants.ShooterConstants.SPKLeft_vel + 5 && Shooter.shareSpeed()>=Constants.ShooterConstants.SPKLeft_vel - 5){
+      LED_Driver.setPreset6();
+      Shooter.shootNote();
+    }
   }
 
   // Called once the command ends or is interrupted.
