@@ -46,6 +46,7 @@ public class RobotContainer {
 
     private final POVButton climb = new POVButton(codriver, 90);
     private final POVButton sniper = new POVButton(codriver, 180);
+    private final POVButton cardinalSource = new POVButton(driver, 270);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();    
@@ -53,6 +54,7 @@ public class RobotContainer {
     private final Shooter s_Shooter = new Shooter();
     private final Limelight s_Limelight = new Limelight();
     private final Climber s_Climber = new Climber();
+    private final LED_Driver s_Led_Driver = new LED_Driver();
 
 
 
@@ -68,18 +70,27 @@ public class RobotContainer {
                 () -> cardinalN.getAsBoolean(),
                 () -> cardinalS.getAsBoolean(),
                 () -> cardinalE.getAsBoolean(),
-                () -> cardinalO.getAsBoolean()
+                () -> cardinalO.getAsBoolean(),
+                () -> cardinalSource.getAsBoolean()
             )
         );
 
         s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder,s_Shooter));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
 
+        s_Led_Driver.setDefaultCommand(new DEFAULT_LED(s_Led_Driver, s_Feeder));
+
+
+
         
-        NamedCommands.registerCommand("Feeder Default", new DEFAULT_Feeder(s_Feeder, s_Shooter));
-        NamedCommands.registerCommand("Shooter Default", new DEFAULT_Shooter(s_Shooter));
-        NamedCommands.registerCommand("Handoff Action", new pasarDonita(s_Feeder, s_Shooter));
-        NamedCommands.registerCommand("Intake", new Intake(s_Feeder));
+        NamedCommands.registerCommand("Speaker Aim", new AutoSpeaker(s_Shooter, s_Limelight).withTimeout(5));
+        NamedCommands.registerCommand("First Aim", new FirstSpeaker(s_Shooter).withTimeout(2));
+        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> s_Shooter.shootNote()));
+        NamedCommands.registerCommand("Intake Note", new AutoIntake(s_Feeder, s_Shooter, s_Limelight).withTimeout(5));
+        NamedCommands.registerCommand("Handoff Action", new pasarDonita(s_Feeder, s_Shooter).withTimeout(4));
+        NamedCommands.registerCommand("Default Feeder", new DEFAULT_Feeder(s_Feeder, s_Shooter).withTimeout(4));
+        NamedCommands.registerCommand("Default Shooter", new DEFAULT_Shooter(s_Shooter).withTimeout(4));
+
 
         // Configure the button bindings
         configureButtonBindings();
@@ -143,6 +154,7 @@ public class RobotContainer {
         shoot.onTrue(new InstantCommand(() -> s_Shooter.shootNote()));
         shoot.onFalse(new InstantCommand(() -> s_Shooter.STOP_Receiver()));
 
+        climb.onFalse(new Climb(s_Climber, s_Shooter, s_Feeder));
         climb.onTrue(new InstantCommand(() -> s_Climber.up()));
         climb.onFalse(new InstantCommand(() -> s_Climber.down()));
 

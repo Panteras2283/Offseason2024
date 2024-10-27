@@ -37,7 +37,7 @@ public class Swerve extends SubsystemBase {
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
 
-        anglePID = new PIDController(0.006, 0.00007 , 0);
+        anglePID = new PIDController(0.06, 0.0007 , 0);
         anglePID.enableContinuousInput(0, 360);
         XPID = new PIDController(0.5, 0, 0);
         YPID = new PIDController(0.5, 0, 0);

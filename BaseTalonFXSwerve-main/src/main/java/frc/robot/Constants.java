@@ -152,14 +152,17 @@ public final class Constants {
         public static final int pivotLeft_ID = 10;
         public static final int pivotRight_ID = 11;
 
-        public static final double POS_initLeft = 0.633;
-        public static final double POS_initRight = -0.686;
+        public static final double POS_initLeft = 0.5179;
+        public static final double POS_initRight = -0.5553;
         
         public static final double POS_eatLeft = 0.045;
         public static final double POS_eatRight = -0.040;
 
-        public static final double POS_handoffLeft = 0.519;
-        public static final double POS_handoffRight = -0.526;
+        public static final double POS_handoffLeft = 0.4501;
+        public static final double POS_handoffRight = -0.4735;
+
+        public static final double POS_climbLeft = 0.7289;
+        public static final double POS_climbRight = -0.7414;
 
         public static final double pivotKP = 3;
         public static final double pivotKI = 0;
@@ -187,7 +190,9 @@ public final class Constants {
         public static final double POS_eat = 0.15;
         public static final double POS_source = 2.1911;
         public static final double POS_clear = 1.8;
-        public static final double POS_handoff = 0.628;
+        public static final double POS_handoff = 0.4836;
+        public static final double POS_climb = 3.3471;
+        public static final double POS_firstAim = 2.344;
         
         public static final double kP = 18; //18        
         public static final double kI = 0;
@@ -205,7 +210,7 @@ public final class Constants {
         public static final double LeftAMP_vel = 1100;
         public static final double RightAMP_vel = -1100; 
         public static final double SPKLeft_vel = 3500;
-        public static final double SPKRight_vel = -3500;
+        public static final double SPKRight_vel = -4000;
         public static final double S_SPKLeft_vel = 7000;
         public static final double S_SPKRight_vel = -7000;
 

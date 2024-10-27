@@ -101,6 +101,11 @@ public class Feeder extends SubsystemBase {
     intake_motor.set(-0.1);
   }
 
+  public void climb_position() {
+    PID_PivotControlLeft.setReference(Constants.FeederConstants.POS_climbLeft, ControlType.kPosition);
+    PID_PivotControlRight.setReference(Constants.FeederConstants.POS_climbRight, ControlType.kPosition);
+  }
+
   public double sharePos() {
     return m_EncoderLeft.getPosition();
   }

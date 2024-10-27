@@ -21,6 +21,7 @@ public class TeleopSwerve extends Command {
     private BooleanSupplier cardSouth;
     private BooleanSupplier cardEast;
     private BooleanSupplier cardWest;
+    private BooleanSupplier cardSource;
 
     public TeleopSwerve(
         Swerve s_Swerve,
@@ -31,7 +32,8 @@ public class TeleopSwerve extends Command {
         BooleanSupplier cardNorth,
         BooleanSupplier cardSouth,
         BooleanSupplier cardEast,
-        BooleanSupplier cardWest
+        BooleanSupplier cardWest,
+        BooleanSupplier cardSource
     ) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
@@ -44,6 +46,7 @@ public class TeleopSwerve extends Command {
         this.cardSouth = cardSouth;
         this.cardEast = cardEast;
         this.cardWest = cardWest;
+        this.cardSource = cardSource;
     }
 
     @Override
@@ -57,18 +60,21 @@ public class TeleopSwerve extends Command {
 /*10 OCTUBRE 2024 */
 
         /* Drive */
-        if (cardNorth.getAsBoolean()==true || cardSouth.getAsBoolean()==true || cardEast.getAsBoolean()==true || cardWest.getAsBoolean()==true) {
+        if (cardNorth.getAsBoolean()==true || cardSouth.getAsBoolean()==true || cardEast.getAsBoolean()==true || cardWest.getAsBoolean()==true || cardSource.getAsBoolean()==true) {
             if (cardNorth.getAsBoolean()==true){
-                targetAngle=0;
+                targetAngle=225;
             }
             else if (cardSouth.getAsBoolean()==true){
-                targetAngle=180;
+                targetAngle=202.5;
             }
             else if (cardEast.getAsBoolean()==true){
                 targetAngle=270;
             }
             else if (cardWest.getAsBoolean()==true){
                 targetAngle=90;
+            }
+            else if (cardSource.getAsBoolean()==true){
+                targetAngle=45;
             }
 
             s_Swerve.lockDrive(

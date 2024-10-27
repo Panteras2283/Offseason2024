@@ -3,36 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.7151677380277848,
-        "y": 4.09478126648561
+        "x": 1.4896821805055864,
+        "y": 5.574358195791997
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.166057716730819,
-        "y": 4.173716808972079
+        "x": 2.4896821805055867,
+        "y": 5.574358195791997
       },
       "isLocked": false,
-      "linkedName": "End-C1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.30075613997382,
-        "y": 5.634024344971768
+        "x": 3.667897778020947,
+        "y": 5.574358195791997
       },
       "prevControl": {
-        "x": 1.30075613997382,
-        "y": 5.634024344971768
+        "x": 2.667897778020947,
+        "y": 5.574358195791997
+      },
+      "nextControl": {
+        "x": 4.667897778020947,
+        "y": 5.574358195791997
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.496814123442796,
+        "y": 5.574358195791997
+      },
+      "prevControl": {
+        "x": 3.0085249599885806,
+        "y": 5.539225686154652
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End-C2"
+      "linkedName": "End-Center1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "Intake",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -41,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Handoff Action"
+                "name": "Intake Note"
               }
             }
           ]
