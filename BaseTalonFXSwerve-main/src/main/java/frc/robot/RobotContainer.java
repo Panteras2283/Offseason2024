@@ -113,14 +113,14 @@ public class RobotContainer {
 
         source.onTrue(new Source(s_Shooter));
         source.onFalse(s_Shooter.getDefaultCommand());
-        
+              
         amp.onTrue(new Amp(s_Shooter));
         amp.onFalse(s_Shooter.getDefaultCommand());
 
         aim.onTrue(new Speaker(s_Shooter, s_Limelight, s_Led_Driver));
         aim.onFalse(s_Shooter.getDefaultCommand());
 
-        sniper.onTrue(new Sniper_Speaker(s_Shooter, s_Limelight));
+        sniper.onTrue(new Sniper_Speaker(s_Shooter, s_Limelight, s_Led_Driver));
         sniper.onFalse(s_Shooter.getDefaultCommand());
 
         aim.onTrue(
@@ -167,7 +167,7 @@ public class RobotContainer {
         handoff.onFalse(s_Shooter.getDefaultCommand());
         handoff.onFalse(s_Feeder.getDefaultCommand());
 
-        HailMary.onTrue(new HailMary(s_Shooter, s_Feeder));
+        HailMary.onTrue(new HailMary(s_Shooter, s_Feeder, s_Led_Driver));
         HailMary.onFalse(s_Shooter.getDefaultCommand());
         HailMary.onFalse(s_Feeder.getDefaultCommand());
 

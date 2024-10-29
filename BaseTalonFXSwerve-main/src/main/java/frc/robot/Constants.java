@@ -185,7 +185,8 @@ public final class Constants {
 
         
         public static final double POS_init = 1.823;
-        public static final double POS_speaker = 2.966;
+        public static final double POS_speaker = 2.6;
+        public static final double POS_snipSpk = 2.966;
         public static final double POS_amp = 2.344;
         public static final double POS_eat = 0.15;
         public static final double POS_source = 2.1911;

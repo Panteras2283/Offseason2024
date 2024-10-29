@@ -45,7 +45,6 @@ public class Speaker extends Command {
 
     if(Shooter.shareSpeed()>=Constants.ShooterConstants.SPKLeft_vel - 5){
       LED_Driver.setPreset6();
-      Shooter.shootNote();
     }
   }
 

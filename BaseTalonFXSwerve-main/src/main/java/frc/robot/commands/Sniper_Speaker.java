@@ -38,14 +38,13 @@ public class Sniper_Speaker extends Command {
     if (Limelight.getArea() > 0) {
       Shooter.manualControl(limelightPID.calculate(Limelight.getTY(), 0));
     }else {
-      Shooter.setPivot_Position(Constants.ShooterConstants.POS_speaker);
+      Shooter.setPivot_Position(Constants.ShooterConstants.POS_snipSpk);
     }
 
     Shooter.SNIPER_accelerate();
 
      if(Shooter.shareSpeed()>=Constants.ShooterConstants.S_SPKLeft_vel - 5){
       LED_Driver.setPreset6();
-      Shooter.shootNote();
     }
   }
 
