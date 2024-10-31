@@ -5,16 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.*;
 
 public class DEFAULT_Feeder extends Command {
   private Feeder Feeder;
-  private Shooter Shooter;
   /** Creates a new DEFAULT_Feeder. */
-  public DEFAULT_Feeder(Feeder Feeder, Shooter Shooter) {
+  public DEFAULT_Feeder(Feeder Feeder) {
     this.Feeder = Feeder;
-    this.Shooter = Shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Feeder);
   }
@@ -26,11 +23,7 @@ public class DEFAULT_Feeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if(Shooter.shareEncoder()> Constants.ShooterConstants.POS_clear){
       Feeder.saveFeeder();
-    } 
-    
   }
 
   // Called once the command ends or is interrupted.

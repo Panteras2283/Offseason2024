@@ -3,48 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.496814123442796,
+        "x": 2.9418259121824937,
         "y": 5.574358195791997
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9346939692452836,
-        "y": 6.101345840352166
+        "x": 2.7193200178126453,
+        "y": 6.195032532718418
       },
       "isLocked": false,
-      "linkedName": "End-Center1"
+      "linkedName": "center1-End"
     },
     {
       "anchor": {
-        "x": 2.7310308543584263,
-        "y": 7.06163443710625
+        "x": 2.9418259121824937,
+        "y": 7.108477783289376
       },
       "prevControl": {
-        "x": 1.7310308543584263,
-        "y": 7.06163443710625
+        "x": 3.2183117378223076,
+        "y": 7.056636690981911
       },
       "nextControl": {
-        "x": 3.7310308543584263,
-        "y": 7.06163443710625
+        "x": 2.754452527449989,
+        "y": 7.143610292926721
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.496814123442796,
+        "x": 2.5436574696259227,
         "y": 5.574358195791997
       },
       "prevControl": {
-        "x": 3.0260912148072503,
-        "y": 5.545081104427544
+        "x": 2.590500815809048,
+        "y": 5.779297835343174
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End-Center 2"
+      "linkedName": "center2-End"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.2,
+      "rotationDegrees": 90.0,
+      "rotateFast": true
+    },
+    {
+      "waypointRelativePos": 1.7,
+      "rotationDegrees": 0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -57,7 +68,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake Note"
+                "name": "Auto Intake"
               }
             }
           ]

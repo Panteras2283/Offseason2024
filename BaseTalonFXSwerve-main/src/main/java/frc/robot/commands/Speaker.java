@@ -55,6 +55,10 @@ public class Speaker extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (Shooter.getSensor() == true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

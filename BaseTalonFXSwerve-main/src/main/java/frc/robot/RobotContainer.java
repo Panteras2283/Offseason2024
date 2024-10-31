@@ -77,7 +77,7 @@ public class RobotContainer {
             )
         );
 
-        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder,s_Shooter));
+        s_Feeder.setDefaultCommand(new DEFAULT_Feeder(s_Feeder));
         s_Shooter.setDefaultCommand(new DEFAULT_Shooter(s_Shooter));
 
         s_Led_Driver.setDefaultCommand(new DEFAULT_LED(s_Led_Driver, s_Feeder));
@@ -85,13 +85,10 @@ public class RobotContainer {
 
 
         
-        NamedCommands.registerCommand("Speaker Aim", new AutoSpeaker(s_Shooter, s_Limelight, s_Led_Driver).withTimeout(5));
-        NamedCommands.registerCommand("First Aim", new FirstSpeaker(s_Shooter).withTimeout(2));
-        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> s_Shooter.shootNote()));
-        NamedCommands.registerCommand("Intake Note", new AutoIntake(s_Feeder, s_Shooter, s_Limelight).withTimeout(5));
-        NamedCommands.registerCommand("Handoff Action", new pasarDonita(s_Feeder, s_Shooter).withTimeout(4));
-        NamedCommands.registerCommand("Default Feeder", new DEFAULT_Feeder(s_Feeder, s_Shooter).withTimeout(4));
-        NamedCommands.registerCommand("Default Shooter", new DEFAULT_Shooter(s_Shooter).withTimeout(4));
+        NamedCommands.registerCommand("Auto Intake", new AutoIntake(s_Feeder, s_Shooter));
+        NamedCommands.registerCommand("First Aim", new FirstSpeaker(s_Shooter).withTimeout(4));
+        NamedCommands.registerCommand("Shoot Note", new InstantCommand(() -> s_Shooter.shootNote()).withTimeout(4));
+        NamedCommands.registerCommand("Shooter Aim", new AutoSpeaker(s_Shooter, s_Limelight, s_Led_Driver).withTimeout(4));
 
 
         // Configure the button bindings
@@ -180,6 +177,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new PathPlannerAuto("CENTER");
+        return new PathPlannerAuto("Center Auto");
     }
 }

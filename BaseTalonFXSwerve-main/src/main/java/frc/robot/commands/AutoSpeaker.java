@@ -21,7 +21,7 @@ public class AutoSpeaker extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new Speaker(Shooter, Limelight, LED_Driver),
-      new WaitCommand(1)
+      new WaitCommand(0.5)
     );
   }
 }

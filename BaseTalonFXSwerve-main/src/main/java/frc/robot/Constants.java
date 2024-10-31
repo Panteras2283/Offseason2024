@@ -185,7 +185,7 @@ public final class Constants {
 
         
         public static final double POS_init = 1.823;
-        public static final double POS_speaker = 2.6;
+        public static final double POS_speaker = 2.78;
         public static final double POS_snipSpk = 2.966;
         public static final double POS_amp = 2.344;
         public static final double POS_eat = 0.15;
@@ -212,7 +212,7 @@ public final class Constants {
         public static final double velMinOut = -1;
         public static final double LeftAMP_vel = 1100;
         public static final double RightAMP_vel = -1100; 
-        public static final double SPKLeft_vel = 3500;
+        public static final double SPKLeft_vel = 4000;
         public static final double SPKRight_vel = -4000;
         public static final double S_SPKLeft_vel = 7000;
         public static final double S_SPKRight_vel = -7000;
